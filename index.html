@@ -1,56 +1,413 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clínica Dental Acacias - Especialistas en Tu Sonrisa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinica Dental Acacias — Tu dentista de confianza en Madrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1565C0;
+      --blue-dark: #0D47A1;
+      --blue-light: #E3F2FD;
+      --white: #FFFFFF;
+      --gray: #F5F5F5;
+      --text: #1C1C1C;
+      --text-muted: #5C6370;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(21,101,192,0.1);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 1.3rem; color: var(--blue); letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--text); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: var(--white) !important; padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--blue-dark) !important; }
+
+    /* HERO */
+    #hero {
+      height: 100vh; min-height: 620px;
+      position: relative; display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(13,71,161,0.82) 0%, rgba(21,101,192,0.55) 50%, rgba(0,0,0,0.1) 100%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      color: var(--white); padding: 0 2rem; max-width: 620px; margin-left: 8%;
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 1.5rem;
+    }
+    .hero-content h1 {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5.5vw, 3.8rem); line-height: 1.1;
+      margin-bottom: 1.2rem; letter-spacing: -1px;
+    }
+    .hero-content h1 em { font-style: normal; color: #90CAF9; }
+    .hero-content p {
+      font-size: clamp(0.95rem, 2vw, 1.15rem); font-weight: 300;
+      opacity: 0.9; margin-bottom: 2.5rem; line-height: 1.65;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block; background: var(--white); color: var(--blue);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem;
+      padding: 1rem 2.2rem; border-radius: 50px; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+
+    .btn-ghost {
+      display: inline-block; border: 2px solid rgba(255,255,255,0.5);
+      color: var(--white); font-family: 'Montserrat', sans-serif;
+      font-weight: 600; font-size: 0.95rem; padding: 0.9rem 2rem;
+      border-radius: 50px; text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+    .hero-stats {
+      position: absolute; bottom: 2.5rem; right: 8%;
+      display: flex; gap: 2rem; z-index: 2;
+    }
+    .hero-stat { text-align: center; color: var(--white); }
+    .hero-stat strong { display: block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.8rem; line-height: 1; }
+    .hero-stat span { font-size: 0.75rem; opacity: 0.75; }
+
+    /* SECTIONS */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; color: var(--text); margin-bottom: 1rem; letter-spacing: -0.5px; }
+    .section-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 540px; }
+
+    /* SERVICIOS */
+    #servicios { background: var(--gray); }
+    .services-header { margin-bottom: 3rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+
+    .service-card {
+      background: var(--white); border-radius: 16px; padding: 2rem 1.8rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid rgba(21,101,192,0.07);
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(21,101,192,0.12); }
+
+    .service-icon {
+      width: 52px; height: 52px; background: var(--blue-light); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;
+    }
+    .service-icon svg { width: 26px; height: 26px; stroke: var(--blue); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .service-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* EQUIPO */
+    #equipo { background: var(--white); }
+    .equipo-header { margin-bottom: 3rem; }
+    .equipo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+
+    .equipo-card {
+      text-align: center;
+      transition: transform 0.25s;
+    }
+    .equipo-card:hover { transform: translateY(-4px); }
+    .equipo-avatar {
+      width: 110px; height: 110px; border-radius: 50%;
+      overflow: hidden; margin: 0 auto 1rem;
+      border: 3px solid var(--blue-light);
+    }
+    .equipo-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .equipo-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+    .equipo-card p { font-size: 0.82rem; color: var(--blue); font-weight: 500; }
+
+    /* CONTACTO */
+    #contacto {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      color: var(--white);
+    }
+    .contacto-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .contacto-info .section-title { color: var(--white); }
+    .contacto-info .section-desc { color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
+
+    .contacto-items { display: flex; flex-direction: column; gap: 1rem; }
+    .contacto-item { display: flex; gap: 1rem; align-items: center; }
+    .contacto-item-icon {
+      width: 44px; height: 44px; background: rgba(255,255,255,0.15);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contacto-item-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 1.8; stroke-linecap: round; }
+    .contacto-item p { font-size: 0.9rem; }
+    .contacto-item strong { display: block; font-weight: 600; }
+    .contacto-item span { opacity: 0.75; font-size: 0.83rem; }
+
+    .cita-form {
+      background: rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem;
+      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .cita-form h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cita-form input, .cita-form select {
+      padding: 0.9rem 1.1rem; border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px; background: rgba(255,255,255,0.12);
+      color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none;
+    }
+    .cita-form input::placeholder { color: rgba(255,255,255,0.55); }
+    .cita-form select option { color: var(--text); background: var(--white); }
+    .btn-white {
+      background: var(--white); color: var(--blue); font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 0.95rem; padding: 1rem; border-radius: 10px;
+      border: none; cursor: pointer; transition: transform 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: #0A1628; color: rgba(255,255,255,0.6); padding: 2.5rem 1.5rem; text-align: center; }
+    .footer-logo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--blue); }
+    footer p { font-size: 0.85rem; line-height: 1.7; }
+    .footer-copy { margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.35; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .hero-content { margin-left: 0; }
+      .hero-stats { display: none; }
+      .contacto-layout { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 1.2rem; }
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-blue-600">Acacias Dental</div>
-            <a href="tel:669169990" class="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Llamar Ahora</a>
+<body>
+
+  <nav id="navbar">
+    <div class="logo">Clinica <span>Acacias</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#contacto" class="nav-cta">Pide Cita</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Dentista de Confianza en Madrid</div>
+      <h1>Clinica Dental Acacias, <em>tu sonrisa</em> en buenas manos</h1>
+      <p>Tu dentista de confianza en Madrid. Implantes, ortodoncia y estetica dental con la ultima tecnologia y el trato cercano que mereces.</p>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-primary">Pide Cita Online</a>
+        <a href="#servicios" class="btn-ghost">Nuestros Servicios</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>2.400+</strong><span>Pacientes</span></div>
+      <div class="hero-stat"><strong>20</strong><span>Anos de experiencia</span></div>
+      <div class="hero-stat"><strong>4.9</strong><span>Valoracion Google</span></div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label">Tratamientos</div>
+        <h2 class="section-title">Soluciones dentales para toda la familia</h2>
+        <p class="section-desc">Desde la primera visita hasta el tratamiento mas avanzado, en Clinica Acacias cuidamos tu salud dental con dedicacion y profesionalidad.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+          </div>
+          <h3>Implantes Dentales</h3>
+          <p>La solucion definitiva para dientes perdidos. Implantes de titanio con garantia de por vida y resultado natural.</p>
         </div>
-    </header>
 
-    <main>
-        <section class="bg-blue-600 text-white py-20 px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Sonrisas perfectas en Madrid</h1>
-            <p class="text-xl mb-8 opacity-90">Especialistas en Invisalign e Implantes Dentales de alta precisión.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <button class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg">Reservar Cita Online</button>
-                <button class="bg-blue-500 border border-blue-400 text-white px-8 py-4 rounded-xl font-bold text-lg">Ver Tratamientos</button>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10M4 18h7"/></svg>
+          </div>
+          <h3>Ortodoncia</h3>
+          <p>Alineadores invisibles y brackets esteticos para conseguir la posicion perfecta de tus dientes de forma eficaz.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="10" x2="9.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/></svg>
+          </div>
+          <h3>Estetica Dental</h3>
+          <p>Carillas de porcelana, blanqueamiento y diseno de sonrisa para una imagen impecable y llena de confianza.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Urgencias 24h</h3>
+          <p>Atencion de urgencias dentales. Llamanos a cualquier hora y te atenderemos lo antes posible.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo">
+    <div class="container">
+      <div class="equipo-header">
+        <div class="section-label">Nuestro Equipo</div>
+        <h2 class="section-title">Profesionales comprometidos con tu salud</h2>
+        <p class="section-desc">Nuestro equipo de especialistas cuenta con mas de 15 anos de experiencia y formacion continua en las mejores instituciones.</p>
+      </div>
+      <div class="equipo-grid">
+        <div class="equipo-card">
+          <div class="equipo-avatar">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&q=80" alt="Dra. Lucia Rios">
+          </div>
+          <h4>Dra. Lucia Rios</h4>
+          <p>Directora clinica · Implantologia</p>
+        </div>
+        <div class="equipo-card">
+          <div class="equipo-avatar">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&q=80" alt="Dr. Carlos Medina">
+          </div>
+          <h4>Dr. Carlos Medina</h4>
+          <p>Ortodoncia · Odontopediatria</p>
+        </div>
+        <div class="equipo-card">
+          <div class="equipo-avatar">
+            <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=300&q=80" alt="Dra. Sara Pinto">
+          </div>
+          <h4>Dra. Sara Pinto</h4>
+          <p>Estetica Dental · Periodoncia</p>
+        </div>
+        <div class="equipo-card">
+          <div class="equipo-avatar">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&q=80" alt="Dr. Javier Torres">
+          </div>
+          <h4>Dr. Javier Torres</h4>
+          <p>Endodoncia · Cirugia Oral</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contacto-layout">
+        <div class="contacto-info">
+          <div class="section-label" style="color:rgba(255,255,255,0.6)">Contacto</div>
+          <h2 class="section-title">Pide tu cita hoy mismo</h2>
+          <p class="section-desc">Primera consulta gratuita. Sin compromiso. Te llamamos en menos de 2 horas.</p>
+          <div class="contacto-items">
+            <div class="contacto-item">
+              <div class="contacto-item-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <p><strong>Direccion</strong><span>Calle de las Acacias 14, 28005 Madrid</span></p>
             </div>
-        </section>
-
-        <section class="max-w-5xl mx-auto py-16 px-4">
-            <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
-                    <div class="text-4xl mb-4">✨</div>
-                    <h3 class="text-xl font-bold mb-2">Invisalign</h3>
-                    <p class="text-slate-600">Ortodoncia invisible para alinear tu sonrisa sin brackets.</p>
-                </div>
-                <div class="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
-                    <div class="text-4xl mb-4">🦷</div>
-                    <h3 class="text-xl font-bold mb-2">Implantes</h3>
-                    <p class="text-slate-600">Recupera la funcionalidad y estética de tu boca.</p>
-                </div>
-                <div class="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
-                    <div class="text-4xl mb-4">📅</div>
-                    <h3 class="text-xl font-bold mb-2">Cita Inmediata</h3>
-                    <p class="text-slate-600">Sin esperas, gestiona tu visita desde el móvil.</p>
-                </div>
+            <div class="contacto-item">
+              <div class="contacto-item-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.69a16 16 0 006.22 6.22l1.21-1.21a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <p><strong>Telefono</strong><span>+34 91 456 78 90</span></p>
             </div>
-        </section>
-    </main>
+            <div class="contacto-item">
+              <div class="contacto-item-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <p><strong>Horario</strong><span>Lun–Vie 9:00–20:00 · Sab 9:00–14:00</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="cita-form">
+          <h3>Solicitar Cita Online</h3>
+          <input type="text" placeholder="Tu nombre completo">
+          <input type="tel" placeholder="Tu numero de telefono">
+          <input type="email" placeholder="Tu email (opcional)">
+          <select>
+            <option value="">Selecciona tratamiento</option>
+            <option>Implantes Dentales</option>
+            <option>Ortodoncia</option>
+            <option>Estetica Dental</option>
+            <option>Urgencia Dental</option>
+            <option>Revision General</option>
+          </select>
+          <button class="btn-white">Pide Cita Online</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer class="bg-slate-900 text-slate-400 py-12 px-4 text-center">
-        <p>© 2026 Clínica Dental Acacias. Madrid, España.</p>
-    </footer>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Clinica <span>Acacias</span></div>
+    <p>Clinica Dental Acacias, tu dentista de confianza en Madrid</p>
+    <p>Calle de las Acacias 14, 28005 Madrid · +34 91 456 78 90</p>
+    <p class="footer-copy">&copy; 2025 Clinica Dental Acacias. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.service-card, .equipo-card, .contacto-item').forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
